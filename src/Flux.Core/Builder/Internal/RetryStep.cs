@@ -38,8 +38,9 @@ internal sealed class RetryStep<TContext>(
             }
         }
 
-        return StepResult.Failure(
-            $"Step '{InnerStep.Name}' failed after {MaxAttempts} attempt(s). Last error: {result.ErrorMessage}",
-            result.Exception!);
+        var message = $"Step '{InnerStep.Name}' failed after {MaxAttempts} attempt(s). Last error: {result.ErrorMessage}";
+        return result.Exception is not null
+            ? StepResult.Failure(message, result.Exception)
+            : StepResult.Failure(message);
     }
 }
