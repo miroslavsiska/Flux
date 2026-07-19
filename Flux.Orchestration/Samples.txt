@@ -1,0 +1,103 @@
+﻿{
+  "Orchestration": {
+    "MethodResolutionMode": "Flexible"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+MethodName
+Merging ScenePhase Parameters
+
+/*
+ public class CheckoutComponent
+{
+    [OrchestrationMethod(OrchestrationId = "Checkout", PhaseId = "ValidateCart")]
+    public void ValidateCart() 
+    { 
+        // logic  
+    }
+
+    [OrchestrationMethod(OrchestrationId = "Checkout", PhaseId = "ChargePayment")]
+    public Task ChargePaymentAsync() => Task.CompletedTask;
+}
+*/
+
+
+/*
+public class TESTTTT
+{
+    public void sample()
+    {
+        new Orchestration(
+         orchestrationId: "Checkout",
+         description: "Handles checkout orchestration",
+         priority: 1,
+         parallel: false,
+         logging: true,
+         phases: new[]
+         {
+            new OrchestrationPhase("ValidateCart", new CartValidator(), description: "Validates the shopping cart"),
+            new OrchestrationPhase("ReserveInventory", new InventoryReserver(), description: "Reserves inventory items"),
+            new OrchestrationPhase("ChargePayment", new PaymentProcessor(), description: "Processes payment"),
+            new OrchestrationPhase("EmitConfirmation", new ConfirmationEmitter(), description: "Sends confirmation to user")
+         },
+         triggers: new[]
+         {
+            new SignalBinding
+            {
+                Signal = "UserForm.checkout",
+                Scope = new EntryScope { OrchestrationId = "Checkout" },
+                Description = "Triggered when user submits checkout form"
+            }
+          });
+    }
+}
+ */
+
+
+
+// Two ways to define a orchestration: Attributes or code-first
+
+//[Orchestration(Id = "Checkout", Description = "Handles checkout orchestration")]
+//[OrchestrationPhase(OrchestrationId = "Checkout", PhaseId = "ValidateCart", Description = "Validates the shopping cart", Parameters = ["RunInParallel=true", "Timeout=00:00:05", "Tags=Cart,PreCheckout"])]
+//[OrchestrationPhase(OrchestrationId = "Checkout", PhaseId = "EmitConfirmation", Description = "Sends confirmation to user", Parameters = ["RunInParallel=true", "Timeout=00:00:05", "Tags=Cart,PreCheckout"])]
+//public class ShoppingCartComponent : ComponentBase
+//{
+//    public void OnValidateCart()
+//    {
+//        // logic 
+//    }
+//    public void OnEmitConfirmation()
+//    {
+//        // logic 
+//    }
+//}
+
+
+/*
+    var orchestration = new Orchestration(
+        orchestrationId: "Checkout",
+        description: "Handles checkout orchestration",
+        plans: new[]
+        {
+            new OrchestrationPlan(...), // ValidateCart
+            new OrchestrationPlan(...), // ReserveInventory
+            new OrchestrationPlan(...), // ChargePayment
+            new OrchestrationPlan(...), // EmitConfirmation
+        },
+        triggers: new[]
+        {
+            new SignalBinding { Signal = "UserForm.checkout", Scope = new EntryScope("Checkout") }
+        }
+    );
+
+ */

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageId>Flux.Orchestration</PackageId>
+	<Version>1.0.1</Version>
+	<Authors>Miroslav Siska</Authors>
+	<Company>Flux</Company>
+	<Description>The orchestration engine for .NET</Description>
+	<RepositoryUrl>https://github.com/your-repo</RepositoryUrl>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
+  </ItemGroup>
+
+</Project>

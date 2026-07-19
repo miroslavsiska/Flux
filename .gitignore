@@ -1,0 +1,175 @@
+## ============================================
+## ULTIMATE .gitignore for .NET 8/9 + Blazor
+## ============================================
+
+# --------------------------------------------
+# User-specific files
+# --------------------------------------------
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# --------------------------------------------
+# Build results
+# --------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+artifacts/
+out/
+
+# --------------------------------------------
+# Visual Studio / VS Code / Rider
+# --------------------------------------------
+.vs/
+.vscode/
+.idea/
+*.sln.iml
+
+# --------------------------------------------
+# NuGet
+# --------------------------------------------
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+
+# --------------------------------------------
+# Logs & temp
+# --------------------------------------------
+*.log
+*.tlog
+*.tmp
+*.temp
+*.bak
+*.old
+
+# --------------------------------------------
+# Publish outputs
+# --------------------------------------------
+publish/
+dist/
+wwwroot/dist/
+wwwroot/build/
+
+# --------------------------------------------
+# Blazor WebAssembly
+# --------------------------------------------
+wwwroot/_framework/
+wwwroot/_bin/
+*.blat
+*.dat
+*.wasm
+*.gz
+*.br
+*.json.gz
+*.json.br
+
+# --------------------------------------------
+# Blazor RCL static assets
+# --------------------------------------------
+**/wwwroot/**/bundle/
+**/wwwroot/**/dist/
+**/wwwroot/**/generated/
+
+# --------------------------------------------
+# Razor generated files
+# --------------------------------------------
+*.g.cs
+*.g.i.cs
+*.razor.g.cs
+*.razor.g.i.cs
+*.rz.scp.css
+
+# --------------------------------------------
+# Node / Frontend tooling
+# --------------------------------------------
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-lock.yaml
+package-lock.json
+*.tsbuildinfo
+
+# --------------------------------------------
+# ASP.NET appsettings (local only)
+# --------------------------------------------
+appsettings.*.local.json
+appsettings.Local.json
+secrets.json
+
+# --------------------------------------------
+# Databases
+# --------------------------------------------
+*.db
+*.db-shm
+*.db-wal
+*.mdf
+*.ldf
+
+# --------------------------------------------
+# Certificates
+# --------------------------------------------
+*.pfx
+*.publishsettings
+
+# --------------------------------------------
+# Coverage
+# --------------------------------------------
+coverage/
+*.coverage
+*.coveragexml
+
+# --------------------------------------------
+# ReSharper / JetBrains
+# --------------------------------------------
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# --------------------------------------------
+# OS junk
+# --------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --------------------------------------------
+# Publish profiles
+# --------------------------------------------
+Properties/PublishProfiles/*.pubxml
+Properties/PublishProfiles/*.pubxml.user
+
+# --------------------------------------------
+# MSBuild
+# --------------------------------------------
+*.g.props
+*.g.targets
+
+# --------------------------------------------
+# EF Core
+# --------------------------------------------
+*.ide
+*.dbmdl
+
+# --------------------------------------------
+# Others
+# --------------------------------------------
+*.pidb
+*.svclog
+*.cache
+*.opendb
+*.opensdf
+*.VC.db
+*.VC.VC.opendb

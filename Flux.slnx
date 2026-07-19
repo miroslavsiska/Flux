@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solutions Items/">
+    <File Path=".forgejo/workflows/dotnet.yml" />
+    <File Path=".forgejo/workflows/nuget-publish.yml" />
+    <File Path=".gitignore" />
+    <File Path=".semgrep/async.yml" />
+    <File Path=".semgrep/di.yml" />
+    <File Path=".semgrepignore" />
+  </Folder>
+  <Project Path="Flux.Orchestration.Tests/Flux.Orchestration.Tests.csproj" />
+  <Project Path="Flux.Orchestration/Flux.Orchestration.csproj" />
+</Solution>
