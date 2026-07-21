@@ -1,8 +1,13 @@
 # Flux 🎬
 
-> **A deterministic, attribute-driven orchestration engine for .NET.**
+> **A deterministic, attribute-driven orchestration runtime for .NET — the substrate agentic & AI systems run their plans on.**
 > Declare work as *scenes* of *phases*; Flux plans them into a dependency DAG and runs them — in parallel where
 > safe, in order where it matters — with resilience, durability, and replay built in.
+
+Flux is deliberately **not** intelligent, and that is the point: it is the reliable *hands*, not the *head*. A planner
+— an agent, an LLM, a searched program, or a person — decides *what* to do; Flux executes that plan **deterministically**,
+durably, and replayably, so the same inputs always give the same run. That makes it a natural execution substrate for
+agentic and AI systems, which need their decisions carried out exactly, checkably, and the same way every time.
 
 Flux turns imperative "call this, then that" glue into **declarative orchestration**. You annotate classes and methods
 with `[Scene]`, `[ScenePhase]`, and `[SceneMethod]`; Flux discovers them, builds an execution plan, and runs it.
@@ -89,20 +94,22 @@ the `SceneContext` and/or a `CancellationToken` and return `void`, `Task`, or `V
 - **Resources** — the typed, versioned `IResourceStore` for race-free inter-phase data (reads never tear; ordering is
   enforced by the DAG via `Reads`/`Writes`).
 - **Diagnostics** — orchestration diagnostics hooks for tracing what ran and when.
-- **Signals** — scenes can declare `Triggers` and be run by name via `IAgent.ExecuteSignalAsync`.
-- **Animation** — frame-clock-driven animation drivers (tween, spring) with snapshot buffering, for time-based /
-  animated orchestration.
+- **Signals** — a scene declares `Triggers` and is raised by name: `IAgent.PlanSignalAsync` queues its scenes for the
+  tick loop (fire-and-forget), while `IAgent.ExecuteSignalAsync` runs them to completion **highest-priority-first** — so
+  several scenes can answer one signal and priority arbitrates which reacts first.
 - **DI** — `services.AddFluxOrchestration()` wires the agent, planner, engine, registries, and defaults.
 
 ## Project layout
 
 | Project | What it is |
 |---|---|
-| `Flux.Orchestration` | the engine — attributes, model, execution (engine · planner · scheduler · resilience), durability, diagnostics, resources, animation, DI |
+| `Flux.Orchestration` | the engine — attributes, model, execution (engine · planner · scheduler · resilience), durability, diagnostics, resources, DI |
 | `Flux.Orchestration.Tests` | the test suite |
 
 ## Status
 
-- **.NET 10**; package version **1.0.1**.
+- **.NET 10**; package version **1.0.5**.
 - Used as the orchestration kernel by **SpareAi**, where recursive plan cycles run as Flux scenes (each node a
-  `plan.node` scene executed via the recursion-safe `ExecuteSceneAsync`).
+  `plan.node` scene executed via the recursion-safe `ExecuteSceneAsync`), and by **The Seed 2**, whose synthesized
+  programs execute as chained Flux phases and whose non-monotonic world repairs run as priority-arbitrated
+  `world.delta` signals — both cases the same shape: the intelligence decides, Flux deterministically carries it out.

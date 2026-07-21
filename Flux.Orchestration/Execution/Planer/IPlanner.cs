@@ -42,4 +42,18 @@ public interface IPlanner
 
     /// <summary>Executes the given scene synchronously to completion (see the string-id overload).</summary>
     Task<SceneExecutionResult> ExecuteSceneAsync(SceneMetadata scene, SceneContext context, bool dryRun = false, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Executes every scene bound to <paramref name="signal"/> SYNCHRONOUSLY to completion, in ascending
+    /// <c>Priority</c> order (lower value first — highest priority first). Unlike
+    /// <see cref="PlanSignalAsync(string, SceneContext, CancellationToken)"/>, which enqueues the resolved scenes for
+    /// the Tick loop and returns immediately, this awaits every phase of every resolved scene, so a caller can raise a
+    /// signal and know the reaction has fully run. When several scenes answer the same signal, priority decides which
+    /// runs first — the seam for arbitrating competing reactions.
+    /// </summary>
+    /// <param name="signal">The signal whose bound scenes to execute.</param>
+    /// <param name="context">The scene context, shared by every resolved scene.</param>
+    /// <param name="dryRun">When true, no target is invoked — the levels are walked with zero side effects.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    Task ExecuteSignalAsync(string signal, SceneContext context, bool dryRun = false, CancellationToken cancellationToken = default);
 }

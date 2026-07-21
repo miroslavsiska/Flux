@@ -44,6 +44,18 @@ public interface IAgent
     ///// </summary>
     //Task ExecuteOrchestrationPhaseAsync(string orchestrationId, string phaseId, OrchestrationContext context, CancellationToken cancellationToken = default);
 
-    /// <summary>Triggers a specific signal.</summary>
+    /// <summary>
+    /// Queues every scene bound to <paramref name="signal"/> for planning (fire-and-forget): the resolved scenes are
+    /// handed to the Tick loop and this returns immediately, before they run. To raise a signal and await its reaction,
+    /// use <see cref="ExecuteSignalAsync"/>.
+    /// </summary>
+    Task PlanSignalAsync(string signal, SceneContext context, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Triggers a signal and runs its reaction SYNCHRONOUSLY to completion: every scene bound to the signal executes,
+    /// highest-priority-first, and the returned task completes only when all their phases have run. Unlike
+    /// <see cref="PlanSignalAsync"/> (fire-and-forget — the resolved scenes are queued for the Tick loop), this lets a
+    /// caller raise a signal and await the outcome, and lets priority arbitrate when several scenes answer it.
+    /// </summary>
     Task ExecuteSignalAsync(string signal, SceneContext context, CancellationToken cancellationToken = default);
 }

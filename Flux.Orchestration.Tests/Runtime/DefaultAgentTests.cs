@@ -22,17 +22,31 @@ public class DefaultAgentTests
     }
 
     [Fact]
-    public async Task ExecuteSignalAsync_ShouldDelegateToPlanner()
+    public async Task PlanSignalAsync_ShouldDelegateToPlanner()
     {
         // Arrange
         var context = new SceneContext();
         var signal = "OnStart";
 
-        // Act
-        await _sut.ExecuteSignalAsync(signal, context);
+        // Act (fire-and-forget: the agent queues the signal's scenes for the Tick loop)
+        await _sut.PlanSignalAsync(signal, context);
 
         // Assert
         _plannerMock.Verify(p => p.PlanSignalAsync(signal, context, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteSignalAsync_ShouldRunToCompletionViaPlanner()
+    {
+        // Arrange
+        var context = new SceneContext();
+        var signal = "OnStart";
+
+        // Act (synchronous: the agent runs the signal's scenes to completion, highest-priority-first)
+        await _sut.ExecuteSignalAsync(signal, context);
+
+        // Assert
+        _plannerMock.Verify(p => p.ExecuteSignalAsync(signal, context, false, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

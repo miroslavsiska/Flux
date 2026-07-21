@@ -244,6 +244,18 @@ public class DefaultPlanner : IPlanner, IOrchestrationLifetime, IDisposable
     }
 
     /// <inheritdoc/>
+    public async Task ExecuteSignalAsync(string signal, SceneContext context, bool dryRun = false, CancellationToken cancellationToken = default)
+    {
+        var scenes = _metadataRegistry.ResolveBySignal(signal)
+            ?? throw new InvalidOperationException($"No orchestration scene is registered with signal ID '{signal}'.");
+
+        // A signal may resolve to several scenes; run them highest-priority-first (ascending Priority, as phases order),
+        // each synchronously to completion. This is the seam where competing reactions to one signal are arbitrated.
+        foreach (var scene in scenes.OrderBy(s => s.Priority))
+            await ExecuteSceneAsync(scene, context, dryRun, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async Task<SceneExecutionResult> ExecuteSceneAsync(SceneMetadata scene, SceneContext context, bool dryRun = false, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(scene);

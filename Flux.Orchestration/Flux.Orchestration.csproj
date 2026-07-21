@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageId>Flux.Orchestration</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.5</Version>
 	<Authors>Miroslav Siska</Authors>
 	<Company>Flux</Company>
 	<Description>The orchestration engine for .NET</Description>

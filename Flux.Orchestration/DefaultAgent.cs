@@ -99,9 +99,16 @@ public class DefaultAgent : IAgent, IDisposable, IAsyncDisposable
     }
 
     /// <inheritdoc />
-    public Task ExecuteSignalAsync(string signal, SceneContext context, CancellationToken cancellationToken = default)
+    public Task PlanSignalAsync(string signal, SceneContext context, CancellationToken cancellationToken = default)
     {
         return _planer.PlanSignalAsync(signal, context, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task ExecuteSignalAsync(string signal, SceneContext context, CancellationToken cancellationToken = default)
+    {
+        // Synchronous to completion (highest-priority scene first), via the same direct scheduler-walk as ExecuteScene.
+        return _planer.ExecuteSignalAsync(signal, context, dryRun: false, cancellationToken);
     }
 
     /// <summary>
