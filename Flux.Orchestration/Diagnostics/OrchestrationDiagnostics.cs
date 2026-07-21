@@ -25,7 +25,7 @@ public static class OrchestrationDiagnostics
     /// <summary>ActivitySource name to subscribe to for traces.</summary>
     public const string ActivitySourceName = "Flux.Orchestration";
 
-    private const string Version = "1.0.0";
+    private const string Version = "1.0.5";
 
     internal static readonly ActivitySource ActivitySource = new(ActivitySourceName, Version);
 
